@@ -11,7 +11,7 @@
 Vagrant.configure("2") do |config|
 
   if Vagrant.has_plugin?("vagrant-proxyconf")
-    config.proxy.enabled  = true  # => true; all applications enabled, false; all applications disabled
+    config.proxy.enabled  = false  # => true; all applications enabled, false; all applications disabled
     config.proxy.http     = "http://my-proxy.co.jp:8080"
     config.proxy.https    = "http://my-proxy.co.jp:8080"
     config.proxy.no_proxy = "localhost,127.0.0.1"
@@ -61,7 +61,7 @@ Vagrant.configure("2") do |config|
   # the path on the host to the actual folder. The second argument is
   # the path on the guest to mount the folder. And the optional third
   # argument is a set of non-required options.
-  config.vm.synced_folder "../data", "/vagrant_data"
+  config.vm.synced_folder ".", "/vagrant_data"
 
   # Provider-specific configuration so you can fine-tune various
   # backing providers for Vagrant. These expose provider-specific options.
@@ -107,6 +107,8 @@ Vagrant.configure("2") do |config|
       sudo curl -L "https://github.com/docker/compose/releases/download/1.22.0/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
       sudo chmod +x /usr/local/bin/docker-compose
       docker-compose --version
+
+      sudo apt-get install -y mysql-client-core-5.7
 
       date > /etc/bootstrapped
   SHELL
